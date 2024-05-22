@@ -18,8 +18,23 @@
         border-color: #00a000;
     }
 
-    .word-item.found {
-        background-color: red;
+    .word-item.group0 {
+        background-color: #ffb852;
+        border-color: #00a000;
+    }
+
+    .word-item.group1 {
+        background-color: #bfb48f;
+        border-color: #00a000;
+    }
+
+    .word-item.group2 {
+        background-color: #beb8e6;
+        border-color: #00a000;
+    }
+
+    .word-item.group3 {
+        background-color: #008aa1;
         border-color: #00a000;
     }
 
