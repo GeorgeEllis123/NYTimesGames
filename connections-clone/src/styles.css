@@ -1,3 +1,4 @@
+/* src/styles.css */
 .word-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -10,7 +11,13 @@
     border: 1px solid #ccc;
     text-align: center;
     cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
 }
+
+    .word-item.selected {
+        background-color: #d0f0d0;
+        border-color: #00a000;
+    }
 
 .selected-words {
     margin-top: 20px;
