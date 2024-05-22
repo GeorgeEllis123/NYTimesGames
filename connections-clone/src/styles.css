@@ -1,4 +1,3 @@
-/* src/styles.css */
 .word-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -16,6 +15,11 @@
 
     .word-item.selected {
         background-color: #d0f0d0;
+        border-color: #00a000;
+    }
+
+    .word-item.found {
+        background-color: red;
         border-color: #00a000;
     }
 
