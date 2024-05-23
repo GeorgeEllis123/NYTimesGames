@@ -1,10 +1,10 @@
 import React from 'react';
 
-const WordItem = ({ word, group, onClick, isSelected, isFound }) => {
+const WordItem = ({ word, onClick, isSelected }) => {
     return (
         <div
             onClick={() => onClick(word)}
-            className={`word-item ${isSelected ? 'selected' : ''} ${isFound ? `group${group}` : ''}`}
+            className={`word-item ${isSelected ? 'selected' : ''}`}
         >
             {word}
 

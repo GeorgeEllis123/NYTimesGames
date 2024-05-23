@@ -36,7 +36,6 @@ function shuffleArray(array) {
 
 words = shuffleArray(words);
 
-
 var found = [false, false, false, false]; // indexs match to groups
 var numFound = 0;
 
@@ -44,7 +43,7 @@ var lives = 4;
 
 const GameBoard = ({ selectedWords, setSelectedWords, setFeedback, feedback, endGame }) => {
     const handleWordClick = (word) => {
-        const isFound = found[words.find(item => item.word === word).rownumber]
+        const isFound = found[words.find(item => item.word === word).rownumber];
         if (!selectedWords.includes(word) && selectedWords.length < 4 && !isFound ) {
             setSelectedWords([...selectedWords, word]);
         } else if (selectedWords.includes(word)) {
@@ -80,14 +79,15 @@ const GameBoard = ({ selectedWords, setSelectedWords, setFeedback, feedback, end
 
     return (
         <div>
+            <p style={{ fontSize: '20px', textAlign: 'center'}}>Create four groups of four!</p>
             <div className="found-grid">
                 {foundCategories.map(row =>
-                    <Category description={descriptions[row[0].rownumber]} words={row} />
+                    <Category key={row[0].rownumber} description={descriptions[row[0].rownumber]} words={row} />
                 )}
             </div>
             <div className="word-grid">
                 {words.map(word => (
-                    <WordItem key={word.word} word={word.word} group={word.rownumber} onClick={handleWordClick} isSelected={selectedWords.includes(word.word)} isFound={found[word.rownumber]} />
+                    <WordItem key={word.word} word={word.word} onClick={handleWordClick} isSelected={selectedWords.includes(word.word)} />
                 ))}
             </div>
             {/* <button className="shuffle" onClick={shuffleWords}>Shuffle</button> */}

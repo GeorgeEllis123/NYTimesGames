@@ -1,12 +1,11 @@
 import React from 'react';
 
 const Category = ({ description, words }) => {
+
     return (
-        <div className={'category'}>
-            {description}
-            {words.map(word => 
-                word.word
-            )}
+        <div className={`category group${words[0].rownumber}`}>
+            <p className={'ctitle'}>{description}</p>
+            {words.map(word => word.word).join(', ')}
         </div>
     );
 };
