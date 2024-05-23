@@ -4,13 +4,19 @@
     gap: 10px;
 }
 
+.found-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+}
+
 .word-item {
     padding: 10px;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    transition: background-color 0.5s, border-color 0.5s;
 }
 
     .word-item.selected {
@@ -20,23 +26,27 @@
 
     .word-item.group0 {
         background-color: #ffb852;
-        border-color: #00a000;
     }
 
     .word-item.group1 {
         background-color: #bfb48f;
-        border-color: #00a000;
     }
 
     .word-item.group2 {
         background-color: #beb8e6;
-        border-color: #00a000;
     }
 
     .word-item.group3 {
         background-color: #008aa1;
-        border-color: #00a000;
     }
+
+.category {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
 
 .selected-words {
     margin-top: 20px;

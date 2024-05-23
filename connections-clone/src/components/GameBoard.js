@@ -1,6 +1,7 @@
 import React from 'react';
 import WordItem from './WordItem';
 import SelectedWords from './SelectedWords';
+import Category from './Category';
 
 var words = [
     { word: 'apple', rownumber: 0 },
@@ -20,6 +21,11 @@ var words = [
     { word: 'soda', rownumber: 3 },
     { word: 'coffee', rownumber: 3 }
 ];
+
+const descriptions = ["Fruits", "Transportation", "Animals", "Beverages"];
+
+var foundCategories = [];
+
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -37,15 +43,6 @@ var numFound = 0;
 var lives = 4;
 
 const GameBoard = ({ selectedWords, setSelectedWords, setFeedback, feedback, endGame }) => {
-    const reorder = (selected) => {
-        var temp = words.slice(0, (numFound - 1) * 4); // Save previous order
-        var remaining = words.slice((numFound - 1) * 4); // Save previous order
-        temp.push(...selected); // Add new row
-        remaining = remaining.filter(word => !selected.map(item => item.word).includes(word.word));
-        remaining.forEach(word => temp.push(word));
-        words = temp;
-    }
-
     const handleWordClick = (word) => {
         const isFound = found[words.find(item => item.word === word).rownumber]
         if (!selectedWords.includes(word) && selectedWords.length < 4 && !isFound ) {
@@ -65,8 +62,9 @@ const GameBoard = ({ selectedWords, setSelectedWords, setFeedback, feedback, end
             const index = words.find(item => item.word === selectedWords[0]).rownumber;
             found[index] = true;
             numFound += 1;
+            foundCategories.push(foundWords);
+            words = words.filter(word => !foundWords.map(item => item.word).includes(word.word));
             setFeedback('Correct Group!');
-            reorder(foundWords);
             setSelectedWords([]);
         } else {
             lives -= 1;
@@ -82,6 +80,11 @@ const GameBoard = ({ selectedWords, setSelectedWords, setFeedback, feedback, end
 
     return (
         <div>
+            <div className="found-grid">
+                {foundCategories.map(row =>
+                    <Category description={descriptions[row[0].rownumber]} words={row} />
+                )}
+            </div>
             <div className="word-grid">
                 {words.map(word => (
                     <WordItem key={word.word} word={word.word} group={word.rownumber} onClick={handleWordClick} isSelected={selectedWords.includes(word.word)} isFound={found[word.rownumber]} />
