@@ -1,3 +1,7 @@
+body {
+    font-family: Courier New, Courier, monospace;
+}
+
 .word-grid {
     width: 100%;
     max-width: 600px;
@@ -84,23 +88,38 @@
     text-align: center;
 }
 
-button {
-    padding: 10px 20px;
+.submit {
+    border-width: 2px;
+    border-radius: 30px;
+    padding: 20px 30px;
     font-size: 1em;
     cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
+    border-color: black;
+    background-color: transparent;
+    color: black;
     transition: background-color 0.3s;
 }
 
-    button:hover {
-        background-color: #0056b3;
+    .submit:hover {
+        background-color: #f0f0f0;
     }
 
 .ctitle {
-    font-size:20px;
+    font-size:25px;
     font-weight: bold;
     margin-bottom: 0px;
+}
+
+.controls {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.lives {
+    margin-bottom: 10px;
+    font-size: 25px;
 }

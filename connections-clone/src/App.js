@@ -27,8 +27,6 @@ const App = () => {
                 <GameBoard
                     selectedWords={selectedWords}
                     setSelectedWords={setSelectedWords}
-                    setFeedback={setFeedback}
-                    feedback={feedback}
                     endGame={endGame}
                 />
             )}

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import WordItem from './WordItem';
-import SelectedWords from './SelectedWords';
+import Controls from './Controls';
 import Category from './Category';
 
 var words = [
@@ -36,15 +36,13 @@ function shuffleArray(array) {
 
 words = shuffleArray(words);
 
-var found = [false, false, false, false]; // indexs match to groups
 var numFound = 0;
 
-var lives = 4;
+const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
+    const [lives, setLives] = useState(4);
 
-const GameBoard = ({ selectedWords, setSelectedWords, setFeedback, feedback, endGame }) => {
     const handleWordClick = (word) => {
-        const isFound = found[words.find(item => item.word === word).rownumber];
-        if (!selectedWords.includes(word) && selectedWords.length < 4 && !isFound ) {
+        if (!selectedWords.includes(word) && selectedWords.length < 4 ) {
             setSelectedWords([...selectedWords, word]);
         } else if (selectedWords.includes(word)) {
             setSelectedWords(selectedWords.filter(selectedWord => selectedWord !== word));
@@ -53,21 +51,15 @@ const GameBoard = ({ selectedWords, setSelectedWords, setFeedback, feedback, end
 
     const validateGroup = () => {
         const foundWords = selectedWords.map(word => words.find(item => item.word === word));
-        var selectedIndices = [];
-        foundWords.forEach(word => selectedIndices.push);
-        const isGroupCorrect = selectedIndices.every(index => index === selectedIndices[0]);
+        const isGroupCorrect = foundWords.every(word => word.rownumber === foundWords[0].rownumber);
         
         if (isGroupCorrect && selectedWords.length === 4) {
-            const index = words.find(item => item.word === selectedWords[0]).rownumber;
-            found[index] = true;
             numFound += 1;
             foundCategories.push(foundWords);
             words = words.filter(word => !foundWords.map(item => item.word).includes(word.word));
-            setFeedback('Correct Group!');
             setSelectedWords([]);
         } else {
-            lives -= 1;
-            setFeedback('Try Again!');
+            setLives(lives-1);
         }
 
         if (lives === 0) {
@@ -91,8 +83,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, setFeedback, feedback, end
                 ))}
             </div>
             {/* <button className="shuffle" onClick={shuffleWords}>Shuffle</button> */}
-            <SelectedWords selectedWords={selectedWords} onValidate={validateGroup} lives={lives} />
-            <div className="feedback">{feedback}</div>
+            <Controls selectedWords={selectedWords} onValidate={validateGroup} lives={lives} />
         </div>
     );
 };
