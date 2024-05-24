@@ -3,7 +3,7 @@ import WordItem from './WordItem';
 import Controls from './Controls';
 import Category from './Category';
 
-var words = [
+var allwords = [
     { word: 'apple', rownumber: 0 },
     { word: 'banana', rownumber: 0 },
     { word: 'grape', rownumber: 0 },
@@ -24,22 +24,28 @@ var words = [
 
 const descriptions = ["Fruits", "Transportation", "Animals", "Beverages"];
 
+var guesses = [];
+
 var foundCategories = [];
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
-words = shuffleArray(words);
 
 var numFound = 0;
 
 const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     const [lives, setLives] = useState(4);
+    const [words, setWords] = useState(allwords);
+
+    const shuffle = () => {
+        const shuffledWords = [...words];
+        for (let i = shuffledWords.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledWords[i], shuffledWords[j]] = [shuffledWords[j], shuffledWords[i]];
+        }
+        setWords(shuffledWords);
+    }
+
+    const deselectAll = () => {
+        setSelectedWords([]);
+    }
 
     const handleWordClick = (word) => {
         if (!selectedWords.includes(word) && selectedWords.length < 4 ) {
@@ -50,22 +56,36 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     };
 
     const validateGroup = () => {
+        selectedWords.sort()
+
         const foundWords = selectedWords.map(word => words.find(item => item.word === word));
         const isGroupCorrect = foundWords.every(word => word.rownumber === foundWords[0].rownumber);
-        
+
+        const alreadyGuessed = guesses.some(guess => {
+            const sortedGuess = guess.slice().sort();
+            return sortedGuess.length === selectedWords.length &&
+                sortedGuess.every((word, index) => word.word === foundWords[index].word);
+        });
+
         if (isGroupCorrect && selectedWords.length === 4) {
             numFound += 1;
             foundCategories.push(foundWords);
-            words = words.filter(word => !foundWords.map(item => item.word).includes(word.word));
+            setWords(words.filter(word => !foundWords.map(item => item.word).includes(word.word)));
             setSelectedWords([]);
+        } else if (alreadyGuessed) {
+            console.log("Already guessed");
         } else {
             setLives(lives-1);
         }
 
+        if (!alreadyGuessed) {
+            guesses.push(foundWords);
+        }
+
         if (lives === 0) {
-            endGame(false);
+            endGame(false, guesses);
         } else if (numFound === 4) {
-            endGame(true);
+            endGame(true, guesses);
         }
     };
 
@@ -83,7 +103,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
                 ))}
             </div>
             {/* <button className="shuffle" onClick={shuffleWords}>Shuffle</button> */}
-            <Controls selectedWords={selectedWords} onValidate={validateGroup} lives={lives} />
+            <Controls selectedWords={selectedWords} onValidate={validateGroup} onDeselect={deselectAll} onShuffle={shuffle} lives={lives} />
         </div>
     );
 };

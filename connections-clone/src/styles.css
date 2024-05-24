@@ -104,6 +104,13 @@ body {
         background-color: #f0f0f0;
     }
 
+    .submit:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: default;
+    }
+
+
 .ctitle {
     font-size:25px;
     font-weight: bold;
@@ -120,6 +127,12 @@ body {
 }
 
 .lives {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: 25px;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
 }

@@ -8,6 +8,12 @@ const App = () => {
     const [gameState, setGameState] = useState('start'); // start, playing, end
     const [selectedWords, setSelectedWords] = useState([]);
     const [feedback, setFeedback] = useState(''); // messages to user
+    const [win, setWin] = useState(false);
+    const [results, setResults] = useState([]);
+
+    const share = () => {
+        console.log(results);
+    }
 
     const startGame = () => {
         setGameState('playing');
@@ -15,8 +21,10 @@ const App = () => {
         setFeedback('');
     };
 
-    const endGame = (success) => {
+    const endGame = (success, guesses) => {
         setGameState('end');
+        setWin(success);
+        setResults(guesses);
         setFeedback(success ? 'Congratulations! You won!' : 'Game Over. Try again!');
     };
 
@@ -30,7 +38,7 @@ const App = () => {
                     endGame={endGame}
                 />
             )}
-            {gameState === 'end' && <EndScreen feedback={feedback} onRestart={startGame} />}
+            {gameState === 'end' && <EndScreen feedback={feedback} win={win} onShare={share} />}
         </div>
     );
 };

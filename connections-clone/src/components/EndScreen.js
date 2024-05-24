@@ -1,10 +1,11 @@
 import React from 'react';
 
-const EndScreen = ({ feedback, onRestart }) => {
+const EndScreen = ({ feedback, win, onShare }) => {
     return (
         <div>
             <h1>{feedback}</h1>
-            <button onClick={onRestart}>Play Again</button>
+            {win ? <button onClick={onShare}>Share!</button> : '' }
+            
         </div>
     );
 };
