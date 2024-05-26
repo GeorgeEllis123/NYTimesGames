@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import './styles.css';
 import StartScreen from './components/StartScreen';
 import GameBoard from './components/GameBoard';
@@ -12,8 +12,28 @@ const App = () => {
     const [results, setResults] = useState([]);
 
     const share = () => {
-        console.log(results);
-    }
+        var output = "";
+        const guessesRows = results.map(guesses => guesses.map(word => word.rownumber));
+        guessesRows.forEach(row => row.forEach(item => {
+            if (item == "0") {
+                output += "🟧";
+            }
+            else if (item == "1") {
+                output += "🟫";
+            }
+            else if (item == "2") {
+                output += "🟦";
+            }
+            else if (item == "3") {
+                output += "🟪";
+            }
+        }, output += "\n"));
+
+        console.log(output);
+
+        // 🟧🟩🟦🟪
+    };
+
 
     const startGame = () => {
         setGameState('playing');
