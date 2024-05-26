@@ -11,7 +11,7 @@ const App = () => {
     const [win, setWin] = useState(false);
     const [results, setResults] = useState([]);
 
-    const share = () => {
+    function evaluateGuesses() {
         var output = "";
         const guessesRows = results.map(guesses => guesses.map(word => word.rownumber));
         guessesRows.forEach(row => row.forEach(item => {
@@ -29,7 +29,7 @@ const App = () => {
             }
         }, output += "\n"));
 
-        console.log(output);
+        return output;
 
         // 🟧🟩🟦🟪
     };
@@ -58,7 +58,7 @@ const App = () => {
                     endGame={endGame}
                 />
             )}
-            {gameState === 'end' && <EndScreen feedback={feedback} win={win} onShare={share} />}
+            {gameState === 'end' && <EndScreen feedback={feedback} win={win} getResults={evaluateGuesses} />}
         </div>
     );
 };
