@@ -33,6 +33,7 @@ var numFound = 0;
 const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     const [lives, setLives] = useState(4);
     const [words, setWords] = useState(allwords);
+    const [mistake, setMistake] = useState(false);
 
     const shuffle = () => {
         const shuffledWords = [...words];
@@ -75,14 +76,30 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         } else if (alreadyGuessed) {
             console.log("Already guessed");
         } else {
-            setLives(lives-1);
+            setMistake(true);
+            setTimeout(() => {
+                setMistake(false);
+                setSelectedWords([]);
+            }, 500);
+
+            setLives(prevLives => {
+                const newLives = prevLives - 1;
+
+                if (newLives <= 0) {
+                    endGame(false, guesses);
+                } else if (numFound === 4) {
+                    endGame(true, guesses);
+                }
+
+                return newLives;
+            });
         }
 
         if (!alreadyGuessed) {
             guesses.push(foundWords);
         }
 
-        if (lives === 0) {
+        if (lives <= 0) {
             endGame(false, guesses);
         } else if (numFound === 4) {
             endGame(true, guesses);
@@ -99,10 +116,9 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
             </div>
             <div className="word-grid">
                 {words.map(word => (
-                    <WordItem key={word.word} word={word.word} onClick={handleWordClick} isSelected={selectedWords.includes(word.word)} />
+                    <WordItem key={word.word} word={word.word} onClick={handleWordClick} isSelected={selectedWords.includes(word.word)} mistake={mistake} />
                 ))}
             </div>
-            {/* <button className="shuffle" onClick={shuffleWords}>Shuffle</button> */}
             <Controls selectedWords={selectedWords} onValidate={validateGroup} onDeselect={deselectAll} onShuffle={shuffle} lives={lives} />
         </div>
     );
