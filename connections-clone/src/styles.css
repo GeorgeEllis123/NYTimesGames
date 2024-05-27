@@ -1,4 +1,4 @@
-body {
+﻿body {
     font-family: Courier New, Courier, monospace;
     background-color: #1a1a1a;
     color: #f0f0f0;
@@ -19,6 +19,28 @@ body {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
 
 .word-item {
@@ -42,6 +64,7 @@ body {
 
     .word-item:hover {
         background-color: #444444;
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🖕</text></svg>") 16 0,auto; /*!emojicursor.app*/
     }
 
     .word-item.selected {
@@ -54,6 +77,7 @@ body {
         background-color: #e63946;
         color: #333333;
         border-color: #333333;
+        animation: shake 0.5s;
     }
 
 .category {
@@ -114,6 +138,7 @@ body {
 
     .submit:hover {
         background-color: #444444;
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🖕</text></svg>") 16 0,auto; /*!emojicursor.app*/
     }
 
     .submit:disabled {

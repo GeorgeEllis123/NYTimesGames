@@ -3,7 +3,7 @@ import React from 'react';
 const StartScreen = ({ onStart }) => {
     return (
         <div>
-            <h1>Welcome to the Connections Game!</h1>
+            <h1 className="animate__animated animate__bounceInDown">Welcome to the Connections Game!</h1>
             <button onClick={onStart}>Start Game</button>
         </div>
     );
