@@ -1,0 +1,7 @@
+Freaky Connections ToDo!!!
+
+Start Page:
+- After clicking play animation
+
+Gameboard:
+- On Shuffle: animate__shakeY
