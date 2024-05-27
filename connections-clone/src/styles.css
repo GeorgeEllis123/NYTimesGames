@@ -194,3 +194,41 @@
     text-align: center;
     color: #f0f0f0;
 }
+
+.startContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.textContainer {
+    margin-bottom:40px;
+}
+
+.welcome {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.playButton {
+    content: "Play";
+    width:150px;
+    border-width: 2px;
+    border-radius: 30px;
+    padding: 20px 30px;
+    font-size: 1em;
+    cursor: pointer;
+    border-color: #f0f0f0;
+    background-color: transparent;
+    color: #f0f0f0;
+    transition: background-color 0.3s;
+}
+
+    .playButton:hover {
+        background-color: #444444;
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🖕</text></svg>") 16 0,auto; /*!emojicursor.app*/
+    }
+
+
