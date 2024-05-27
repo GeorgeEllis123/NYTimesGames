@@ -7,6 +7,7 @@ import EndScreen from './components/EndScreen';
 
 const App = () => {
     const [gameState, setGameState] = useState('start'); // start, playing, end
+    const [isEndScreenModalOpen, setIsEndScreenModalOpen] = useState(false);
     const [selectedWords, setSelectedWords] = useState([]);
     const [feedback, setFeedback] = useState(''); // messages to user
     const [win, setWin] = useState(false);
@@ -43,7 +44,7 @@ const App = () => {
     };
 
     const endGame = (success, guesses) => {
-        setGameState('end');
+        setIsEndScreenModalOpen(true);
         setWin(success);
         setResults(guesses);
         setFeedback(success ? 'Congratulations! You won!' : 'Game Over. Try again!');
@@ -59,7 +60,7 @@ const App = () => {
                     endGame={endGame}
                 />
             )}
-            {gameState === 'end' && <EndScreen feedback={feedback} win={win} getResults={evaluateGuesses} />}
+            {isEndScreenModalOpen && <EndScreen feedback={feedback} win={win} getResults={evaluateGuesses} closeModal={() => setIsEndScreenModalOpen(false)} />}
         </div>
     );
 };

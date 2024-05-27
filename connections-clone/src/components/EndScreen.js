@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const EndScreen = ({ feedback, win, getResults }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+const EndScreen = ({ feedback, win, getResults, closeModal }) => {
 
     const handleCopy = () => {
         const textToCopy = getResults();
@@ -13,20 +12,12 @@ const EndScreen = ({ feedback, win, getResults }) => {
     };
 
     return (
-        <div>
-            <h1>{feedback}</h1>
-            {win ? <button onClick={() => setIsModalOpen(true)}>Share!</button> : ''}
-
-            {isModalOpen && (
-                <div className="modal">
-                    <div className="modalContent">
-                        <h2>Share your result!</h2>
-                        <button onClick={handleCopy}>Copy Text</button>
-                        <button onClick={() => setIsModalOpen(false)}>Close</button>
-                    </div>
-                </div>
-            )}
-            
+        <div className="animate__animated animate__fadeIn modal">
+            <div className="modalContent">
+                <h2>Share your result!</h2>
+                <button onClick={handleCopy}>Copy Text</button>
+                <button onClick={closeModal}>Close</button>
+            </div>
         </div>
     );
 };

@@ -78,7 +78,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         } else {
             setMistake(true);
             setTimeout(() => {
-            setMistake(false);
+                setMistake(false);
                 setSelectedWords([]);
             }, 500);
 
@@ -102,13 +102,14 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         if (lives <= 0) {
             endGame(false, guesses);
         } else if (numFound === 4) {
-            endGame(true, guesses);
+            setTimeout(() =>
+                endGame(true, guesses), 1000);
         }
     };
 
     return (
-        <div>
-            <p style={{ fontSize: '20px', textAlign: 'center'}}>Create four groups of four!</p>
+        <div className="gameboardContainer">
+            <p style={{ fontSize: '25px', textAlign: 'center'}}>Create four groups of four!</p>
             <div className="found-grid">
                 {foundCategories.map(row =>
                     <Category key={row[0].rownumber} description={descriptions[row[0].rownumber]} words={row} />
