@@ -110,7 +110,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     return (
         <div className="gameboardContainer">
             <p style={{ fontSize: '25px', textAlign: 'center'}}>Create four groups of four!</p>
-            <div className="found-grid">
+            <div className={`found-grid ${(words.length != 0 && guesses != 0) ? 'addBottomMargin': ''}`}>
                 {foundCategories.map(row =>
                     <Category key={row[0].rownumber} description={descriptions[row[0].rownumber]} words={row} />
                 )}
