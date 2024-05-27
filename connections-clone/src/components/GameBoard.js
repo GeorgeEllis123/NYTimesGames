@@ -78,7 +78,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         } else {
             setMistake(true);
             setTimeout(() => {
-                setMistake(false);
+            setMistake(false);
                 setSelectedWords([]);
             }, 500);
 
