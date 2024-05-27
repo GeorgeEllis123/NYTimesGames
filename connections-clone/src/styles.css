@@ -95,6 +95,7 @@
 
     .category.group0 {
         background-color: #ffb852;
+        color: #1a1a1a;
     }
 
     .category.group1 {
@@ -104,10 +105,12 @@
 
     .category.group2 {
         background-color: #beb8e6;
+        color: #1a1a1a;
     }
 
     .category.group3 {
         background-color: #008aa1;
+        color: #1a1a1a;
     }
 
 .selected-words {
