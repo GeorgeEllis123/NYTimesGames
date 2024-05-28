@@ -3,16 +3,17 @@ import WordItem from './WordItem';
 import Controls from './Controls';
 import Category from './Category';
 
+// Word board and categories
 var allwords = [
     { word: 'blue', rownumber: 3 },
     { word: 'light', rownumber: 2 },
     { word: 'mode', rownumber: 3 },
     { word: 'menu', rownumber: 2 },
+    { word: 'drink', rownumber: 2 },
     { word: 'coke', rownumber: 0 },
-    { word: 'alcohol', rownumber: 0 },
     { word: 'smoke', rownumber: 2 },
     { word: 'meth', rownumber: 0 },
-    { word: 'drink', rownumber: 2 },
+    { word: 'alcohol', rownumber: 0 },
     { word: 'tap', rownumber: 1 },
     { word: 'do', rownumber: 1 },
     { word: 'mill', rownumber: 3 },
@@ -21,17 +22,18 @@ var allwords = [
     { word: 'smash', rownumber: 1 },
     { word: 'hit', rownumber: 1 }
 ];
-
 const descriptions = ["Drugs", "To Fornicate", '"Can I get a _____"', "Beer Names Shortened"];
 
+// Tracks all guesses for results
 var guesses = [];
 
+// Keeps track of which and how many categories have been found
 var foundCategories = [];
-
 var numFound = 0;
 
-const winMessages = ["So Freaky!", "You a Freak!"];
-const lossMessages = ["Too Vanilla", "Nice Try Loser", "Not Surprised"];
+// Random ending messages
+const winMessages = ["So Freaky!", "You a Freak!", "Freaktastic!", "Freaky Boy"];
+const lossMessages = ["Too Vanilla", "Virgin", "Not Surprised", "Monkey!"];
 
 const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     const [lives, setLives] = useState(4);
@@ -40,8 +42,12 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     const [showPopup, setShowPopup] = useState(false);
     const [popupMessage, setPopupMessage] = useState("");
     const [fadeOut, setFadeOut] = useState(false);
+    const [fadeOutTiles, setFadeOutTiles] = useState(false);
+    const [fadeInTiles, setFadeInTiles] = useState(false);
     const [loss, setLoss] = useState(false);
+    const [disableSubmit, setDisableSubmit] = useState(false);
 
+    // Random ending message
     const getRandomMessage = (type) => {
         if (type === 0) {
             const randomIndex = Math.floor(Math.random() * lossMessages.length);
@@ -52,10 +58,9 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         }
     }
 
+    // Displays the popup
     const showPopupMessage = (message) => {
         setPopupMessage(message);
-
-        // Makes the popup message fade in and out
         setShowPopup(true);
         setTimeout(() => {
             setFadeOut(true);
@@ -66,6 +71,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         }, 1000)
     };
 
+    // Shuffles the words
     const shuffle = () => {
         const shuffledWords = [...words];
         for (let i = shuffledWords.length - 1; i > 0; i--) {
@@ -75,7 +81,10 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         setWords(shuffledWords);
     }
 
+    // Selecting words
     const handleWordClick = (word) => {
+        setDisableSubmit(false);
+
         if (!selectedWords.includes(word) && selectedWords.length < 4 ) {
             setSelectedWords([...selectedWords, word]);
         } else if (selectedWords.includes(word)) {
@@ -83,6 +92,21 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         }
     };
 
+    // All effects during a currect guess
+    const handleCorrectGuess = (foundWords) => {
+        numFound += 1;
+        setFadeOutTiles(true);
+        setTimeout(() => {
+            setFadeOutTiles(false);
+            foundCategories.push(foundWords);
+            setWords(words.filter(word => !foundWords.map(item => item.word).includes(word.word)));
+            setFadeInTiles(true);
+            setSelectedWords([]);
+            setTimeout(() => setFadeInTiles(false), 1000);
+        }, 1000)
+    }
+
+    // Checks if the guess is one away
     function oneAway(words) {
         const firstCount = words.filter(word => word.rownumber === words[0].rownumber).length;
         const secondCount = words.filter(word => word.rownumber === words[1].rownumber).length;
@@ -92,7 +116,10 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         }
     }
 
+    // Validates the guess and updates the states accordingly
     const validateGroup = () => {
+        setDisableSubmit(true);
+        
         selectedWords.sort()
 
         const foundWords = selectedWords.map(word => words.find(item => item.word === word));
@@ -105,10 +132,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         });
 
         if (isGroupCorrect && selectedWords.length === 4) {
-            numFound += 1;
-            foundCategories.push(foundWords);
-            setWords(words.filter(word => !foundWords.map(item => item.word).includes(word.word)));
-            setSelectedWords([]);
+            handleCorrectGuess(foundWords);
         } else if (alreadyGuessed) {
             showPopupMessage("Already Guessed");
         } else {
@@ -145,7 +169,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     };
 
     return (
-        <div className="gameboardContainer">
+        <div className="gameboardContainer animate__animated animate__fadeIn">
             <p style={{ fontSize: '25px', textAlign: 'center'}}>Create four groups of four!</p>
 
             {showPopup && <div className={`animate__animated 
@@ -162,10 +186,25 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
 
             <div className="word-grid">
                 {words.map(word => (
-                    <WordItem key={word.word} word={word.word} onClick={handleWordClick} isSelected={selectedWords.includes(word.word)} mistake={mistake} />
+                    <WordItem
+                        key={word.word}
+                        word={word.word}
+                        onClick={handleWordClick}
+                        isSelected={selectedWords.includes(word.word)}
+                        fadeIn={fadeInTiles}
+                        fadeOut={fadeOutTiles}
+                        mistake={mistake}
+                    />
                 ))}
             </div>
-            <Controls selectedWords={selectedWords} onValidate={validateGroup} onDeselect={() => setSelectedWords([])} onShuffle={shuffle} lives={lives} />
+            <Controls
+                selectedWords={selectedWords}
+                onValidate={validateGroup}
+                onDeselect={() => setSelectedWords([])}
+                onShuffle={shuffle}
+                lives={lives}
+                disableSubmit={disableSubmit}
+            />
         </div>
     );
 };

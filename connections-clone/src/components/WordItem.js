@@ -1,10 +1,15 @@
 import React from 'react';
 
-const WordItem = ({ word, onClick, isSelected, mistake }) => {
+const WordItem = ({ word, onClick, isSelected, fadeIn, fadeOut, mistake }) => {
     return (
         <div
             onClick={() => onClick(word)}
-            className={`word-item ${(isSelected && !mistake) ? 'selected' : ''} ${(isSelected && mistake) ? 'mistake' : ''}`} 
+            className={`animate__animated 
+                        word-item
+                        ${(!isSelected && fadeIn) ? 'animate__flipInX' : ''} 
+                        ${(isSelected && fadeOut) ? 'animate__flipOutX' : ''} 
+                        ${(isSelected && !mistake) ? 'selected' : ''} 
+                        ${(isSelected && mistake) ? 'mistake' : ''}`} 
         >
             {word}
 

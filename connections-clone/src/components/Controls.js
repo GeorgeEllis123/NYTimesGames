@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 
-const Controls = ({ selectedWords, onValidate, onDeselect, onShuffle, lives }) => {
+const Controls = ({ selectedWords, onValidate, onDeselect, onShuffle, lives, disableSubmit }) => {
     return (
         <div className="controls">
             <div className="lives">
@@ -9,7 +9,7 @@ const Controls = ({ selectedWords, onValidate, onDeselect, onShuffle, lives }) =
             <div className="button-group">
                 <button className="submit" onClick={onShuffle}>Shuffle</button>
                 <button className="submit" onClick={onDeselect} disabled={(selectedWords.length === 0)}>Deselect all</button>
-                <button className="submit" onClick={onValidate} disabled={(selectedWords.length < 4)}>Submit</button>
+                <button className="submit" onClick={onValidate} disabled={(selectedWords.length < 4) || disableSubmit}>Submit</button>
             </div>
         </div>
     );
