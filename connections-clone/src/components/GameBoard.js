@@ -30,20 +30,40 @@ var foundCategories = [];
 
 var numFound = 0;
 
+const winMessages = ["So Freaky!", "You a Freak!"];
+const lossMessages = ["Too Vanilla", "Nice Try Loser", "Not Surprised"];
+
 const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     const [lives, setLives] = useState(4);
     const [words, setWords] = useState(allwords);
     const [mistake, setMistake] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [popupMessage, setPopupMessage] = useState("");
+    const [fadeOut, setFadeOut] = useState(false);
+    const [loss, setLoss] = useState(false);
 
+    const getRandomMessage = (type) => {
+        if (type === 0) {
+            const randomIndex = Math.floor(Math.random() * lossMessages.length);
+            return lossMessages[randomIndex];
+        } else if (type === 1) {
+            const randomIndex = Math.floor(Math.random() * winMessages.length);
+            return winMessages[randomIndex];
+        }
+    }
 
     const showPopupMessage = (message) => {
         setPopupMessage(message);
+
+        // Makes the popup message fade in and out
         setShowPopup(true);
         setTimeout(() => {
-            setShowPopup(false);
-        }, 1500);
+            setFadeOut(true);
+            setTimeout(() => {
+                setFadeOut(false);
+                setShowPopup(false);
+            }, 1000)
+        }, 1000)
     };
 
     const shuffle = () => {
@@ -90,12 +110,11 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
             setWords(words.filter(word => !foundWords.map(item => item.word).includes(word.word)));
             setSelectedWords([]);
         } else if (alreadyGuessed) {
-            console.log("Already guessed");
+            showPopupMessage("Already Guessed");
         } else {
             setMistake(true);
             setTimeout(() => {
                 setMistake(false);
-                setSelectedWords([]);
             }, 500);
 
             if (oneAway(foundWords)) {
@@ -106,7 +125,8 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
                 const newLives = prevLives - 1;
 
                 if (newLives <= 0) {
-                    showPopupMessage("Too Vanilla");
+                    setLoss(true);
+                    showPopupMessage(getRandomMessage(0));
                     setTimeout(() => endGame(false, guesses), 1500);
                 } 
 
@@ -119,7 +139,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         }
 
         if (numFound === 4) {
-            showPopupMessage("So Freaky!");
+            showPopupMessage(getRandomMessage(1));
             setTimeout(() => endGame(true, guesses), 1500);
         }
     };
@@ -127,12 +147,19 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     return (
         <div className="gameboardContainer">
             <p style={{ fontSize: '25px', textAlign: 'center'}}>Create four groups of four!</p>
-            {showPopup && <div className="animate__animated animate__fadeIn popup">{popupMessage}</div>}
-            <div className={`found-grid ${(words.length !== 0 && guesses.length !== 0) ? 'addBottomMargin' : ''}`}>
+
+            {showPopup && <div className={`animate__animated 
+                                        ${(fadeOut && !loss) ? "animate__fadeOut" : "animate__fadeIn"} 
+                                        ${(loss) ? "animate__hinge" : ""}
+                                        popup`}
+            >{popupMessage}</div>}
+
+            <div className={`found-grid ${(words.length !== 0 && foundCategories.length !== 0) ? 'addBottomMargin' : ''}`}>
                 {foundCategories.map(row =>
                     <Category key={row[0].rownumber} description={descriptions[row[0].rownumber]} words={row} />
                 )}
             </div>
+
             <div className="word-grid">
                 {words.map(word => (
                     <WordItem key={word.word} word={word.word} onClick={handleWordClick} isSelected={selectedWords.includes(word.word)} mistake={mistake} />
