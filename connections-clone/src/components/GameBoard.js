@@ -33,7 +33,7 @@ var numFound = 0;
 
 // Random ending messages
 const winMessages = ["So Freaky!", "You a Freak!", "Freaktastic!", "Freaky Boy"];
-const lossMessages = ["Too Vanilla", "Virgin", "Not Surprised", "Monkey!"];
+const lossMessages = ["Too Vanilla", "Virgin", "Not Surprised", "Monkey..."];
 
 const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     const [lives, setLives] = useState(4);
@@ -68,7 +68,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
                 setFadeOut(false);
                 setShowPopup(false);
             }, 1000)
-        }, 1000)
+        }, 2000)
     };
 
     // Shuffles the words
@@ -151,7 +151,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
                 if (newLives <= 0) {
                     setLoss(true);
                     showPopupMessage(getRandomMessage(0));
-                    setTimeout(() => endGame(false, guesses), 1500);
+                    setTimeout(() => endGame(false, guesses), 2000);
                 } 
 
                 return newLives;
@@ -170,7 +170,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
 
     return (
         <div className="gameboardContainer animate__animated animate__fadeIn">
-            <p style={{ fontSize: '25px', textAlign: 'center'}}>Create four groups of four!</p>
+            <p className="instruction">Create four groups of four!</p>
 
             {showPopup && <div className={`animate__animated 
                                         ${(fadeOut && !loss) ? "animate__fadeOut" : "animate__fadeIn"} 

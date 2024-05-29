@@ -9,12 +9,11 @@ const App = () => {
     const [gameState, setGameState] = useState('start'); // start, playing, end
     const [isEndScreenModalOpen, setIsEndScreenModalOpen] = useState(false);
     const [selectedWords, setSelectedWords] = useState([]);
-    const [feedback, setFeedback] = useState(''); // messages to user
     const [win, setWin] = useState(false);
     const [results, setResults] = useState([]);
 
     function evaluateGuesses() {
-        var output = "";
+        var output = "Freaky Connections 001\n";
         const guessesRows = results.map(guesses => guesses.map(word => word.rownumber));
         guessesRows.forEach(row => row.forEach(item => {
             if (item === "0") {
@@ -40,14 +39,12 @@ const App = () => {
     const startGame = () => {
         setGameState('playing');
         setSelectedWords([]);
-        setFeedback('');
     };
 
     const endGame = (success, guesses) => {
         setIsEndScreenModalOpen(true);
         setWin(success);
         setResults(guesses);
-        setFeedback(success ? 'Congratulations! You won!' : 'Game Over. Try again!');
     };
 
     return (
@@ -60,7 +57,7 @@ const App = () => {
                     endGame={endGame}
                 />
             )}
-            {isEndScreenModalOpen && <EndScreen feedback={feedback} win={win} getResults={evaluateGuesses} closeModal={() => setIsEndScreenModalOpen(false)} />}
+            {isEndScreenModalOpen && <EndScreen win={win} getResults={evaluateGuesses} closeModal={() => setIsEndScreenModalOpen(false)} />}
         </div>
     );
 };
