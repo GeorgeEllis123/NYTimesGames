@@ -14,21 +14,37 @@ const EndScreen = ({ win, getResults, closeModal }) => {
 
     return (
         <div className="animate__animated animate__fadeIn modal">
-            {win && (<div className="modalContent">
-                <h2>Share your result!</h2>
-                <button onClick={handleCopy}>Copy Text</button>
-                <button onClick={closeModal}>Close</button>
-            </div>)}
+            {win && (<div>
+                <button onClick={closeModal} className="close-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M6 6L18 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </button>
+                <div className="modalContent">
+                    <h2>Share your result!</h2>
+                    <button onClick={handleCopy}>Copy Text</button>
+                    <button onClick={closeModal}>Close</button>
+                </div>
+                </div>)}
 
-            {!win && (<div className="modalContent">
-                <h2>This might suit you better...</h2>
-                <a href="https://www.nytimes.com/games/connections" target="_blank">
-                    <button className="nyt">
-                        <img src={nytimesLogo} alt="NYTimes Logo" className="nytimes-logo" />
-                    </button>
-                </a>
-                <button onClick={closeModal}>Close</button>
-            </div>)}
+            {!win && (<div>
+                <button onClick={closeModal} className="close-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M6 6L18 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </button>
+                <div className="modalContent">
+                    <h2>This might suit you better...</h2>
+                    <a href="https://www.nytimes.com/games/connections" target="_blank">
+                        <button className="nyt">
+                            <img src={nytimesLogo} alt="NYTimes Logo" className="nytimes-logo" />
+                        </button>
+                    </a>
+            </div>
+            </div>)
+}
         </div>
     );
 };

@@ -19,7 +19,7 @@ button {
         cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🖕</text></svg>") 16 0,auto; /*!emojicursor.app*/
     }
 
-/* Game Board */
+/*** Game Board Page ***/
 
 .gameboardContainer {
     display: flex;
@@ -35,6 +35,7 @@ button {
     text-align: center;
 }
 
+/* Game Board */
 .found-grid {
     width: 95%;
     max-width: 90vh;
@@ -47,6 +48,17 @@ button {
     .found-grid.addBottomMargin {
         margin-bottom: 10px;
     }
+
+.ctitle {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.cbody {
+    margin-top: 0;
+    font-size: 1em;
+}
 
 .category {
     height: 100px;
@@ -88,28 +100,6 @@ button {
     gap: 10px;
 }
 
-@keyframes shake {
-    0% {
-        transform: translateX(0);
-    }
-
-    25% {
-        transform: translateX(-5px);
-    }
-
-    50% {
-        transform: translateX(5px);
-    }
-
-    75% {
-        transform: translateX(-5px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
-}
-
 .word-item {
     width: 100%;
     height: 100px;
@@ -146,14 +136,7 @@ button {
         animation: shake 0.5s;
     }
 
-/* Idk */
-
-.feedback {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #2a9d8f;
-    text-align: center;
-}
+/*** End Screen ***/
 
 .nyt {
     font-size: 1em;
@@ -162,6 +145,11 @@ button {
 
 .nytimes-logo {
     width: 1.5em;
+}
+
+.close-button {
+    background-color: #1a1a1a;
+    border: 0px;
 }
 
 .submit {
@@ -177,17 +165,6 @@ button {
         cursor: default;
         opacity: .5;
     }
-
-.ctitle {
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 0px;
-}
-
-.cbody {
-    margin-top:0;
-    font-size: 1em;
-}
 
 .controls {
     margin-top: 30px;
@@ -247,8 +224,6 @@ button {
 }
 
 .playButton {
-    content: "Play";
-    width:150px;
     border-width: 2px;
     padding: 20px 30px;
     font-size: 1em;
@@ -270,4 +245,28 @@ button {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     opacity: 1;
     z-index: 9999;
+}
+
+/*** Other Stuff ***/
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
