@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import WordItem from './WordItem';
 import Controls from './Controls';
 import Category from './Category';
@@ -35,18 +35,54 @@ var numFound = 0;
 const winMessages = ["So Freaky!", "You a Freak!", "Freaktastic!", "Freaky Boy"];
 const lossMessages = ["Too Vanilla", "Virgin", "Not Surprised", "Monkey..."];
 
-const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
+const GameBoard = ({ endGame }) => {
     const [lives, setLives] = useState(4);
     const [words, setWords] = useState(allwords);
     const [mistake, setMistake] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [popupMessage, setPopupMessage] = useState("");
     const [fadeOut, setFadeOut] = useState(false);
-    const [fadeOutTiles, setFadeOutTiles] = useState(false);
-    const [fadeInTiles, setFadeInTiles] = useState(false);
+    const [flipOutTiles, setFlipOutTiles] = useState(false);
+    const [flipInTiles, setFlipInTiles] = useState(false);
     const [gameover, setGameover] = useState(false);
     const [loss, setLoss] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
+    const [revealed, setRevealed] = useState(false);
+    const [selectedWords, setSelectedWords] = useState([]);
+    const [finalSelection, setFinalSelection] = useState([]);
+
+    // Reveals the board after the player loses
+    useEffect(() => {
+        if (!revealed && gameover) {
+            setTimeout(() => revealBoard(), 1000)
+            setRevealed(true);
+        }
+    }, [gameover]);
+
+    useEffect(() => {
+        if (finalSelection.length > 0) {
+            foundCategories.push(finalSelection);
+            const newWords = words.filter(word => !finalSelection.map(item => item.word).includes(word.word));
+            setWords(newWords);
+        }
+
+        console.log(finalSelection);
+    }, [finalSelection]);
+
+    const revealBoard = () => {
+        const wordsCopy = [...words];
+        wordsCopy.sort((a, b) => a.rownumber - b.rownumber);
+        const rowsRemaining = words.length / 4;
+
+        setFlipOutTiles(true);
+        setFlipInTiles(true);
+        for (let i = 0; i < rowsRemaining; i++) {
+            setTimeout(() => {
+                setFinalSelection(wordsCopy.splice(0, 4));
+            }, 1000*i) 
+        }
+        setTimeout(() => endGame(false, guesses), (rowsRemaining+1)*1000);
+    }
 
     // Random ending message
     const getRandomMessage = (type) => {
@@ -96,14 +132,14 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     // All effects during a currect guess
     const handleCorrectGuess = (foundWords) => {
         numFound += 1;
-        setFadeOutTiles(true);
+        setFlipOutTiles(true);
         setTimeout(() => {
-            setFadeOutTiles(false);
+            setFlipOutTiles(false);
             foundCategories.push(foundWords);
             setWords(words.filter(word => !foundWords.map(item => item.word).includes(word.word)));
-            setFadeInTiles(true);
+            setFlipInTiles(true);
             setSelectedWords([]);
-            setTimeout(() => setFadeInTiles(false), 1000);
+            setTimeout(() => setFlipInTiles(false), 1000);
         }, 1000)
     }
 
@@ -152,8 +188,8 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
                 if (newLives <= 0) {
                     setLoss(true);
                     setGameover(true);
+                    setSelectedWords([]);
                     showPopupMessage(getRandomMessage(0));
-                    setTimeout(() => endGame(false, guesses), 2000);
                 } 
 
                 return newLives;
@@ -183,7 +219,10 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
 
             <div className={`found-grid ${(words.length !== 0 && foundCategories.length !== 0) ? 'addBottomMargin' : ''}`}>
                 {foundCategories.map(row =>
-                    <Category key={row[0].rownumber} description={descriptions[row[0].rownumber]} words={row} />
+                    <Category
+                        key={row[0].rownumber}
+                        description={descriptions[row[0].rownumber]}
+                        words={row} />
                 )}
             </div>
 
@@ -194,8 +233,9 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
                         word={word.word}
                         onClick={handleWordClick}
                         isSelected={selectedWords.includes(word.word)}
-                        fadeIn={fadeInTiles}
-                        fadeOut={fadeOutTiles}
+                        isInFinalSelection={finalSelection.some(selected => { return selected.word === word.word})}
+                        fadeIn={flipInTiles}
+                        fadeOut={flipOutTiles}
                         mistake={mistake}
                     />
                 ))}
