@@ -3,8 +3,9 @@
     "",
     "\\connections-clone",
     "\\connections-clone\\src",
-    "\\connections-clone\\src\\components"
+    "\\connections-clone\\src\\components",
+    "\\connections-clone\\src\\images"
   ],
-  "SelectedNode": "\\connections-clone\\src\\components\\EndScreen.js",
+  "SelectedNode": "\\connections-clone\\src\\components\\WordItem.js",
   "PreviewInSolutionExplorer": false
 }

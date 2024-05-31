@@ -138,6 +138,14 @@ button {
 
 /*** End Screen ***/
 
+.share-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 .nyt {
     font-size: 1em;
     justify-content:center;

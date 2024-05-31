@@ -22,9 +22,14 @@ const EndScreen = ({ win, getResults, closeModal }) => {
                     </svg>
                 </button>
                 <div className="modalContent">
-                    <h2>Share your result!</h2>
+                    <h3>Share your result!</h3>
                     <button onClick={handleCopy}>Copy Text</button>
-                    <button onClick={closeModal}>Close</button>
+                    <h3>And go sober up...</h3>
+                    <a href="https://www.nytimes.com/games/connections" target="_blank">
+                        <button className="nyt">
+                            <img src={nytimesLogo} alt="NYTimes Logo" className="nytimes-logo" />
+                        </button>
+                    </a>
                 </div>
                 </div>)}
 
@@ -36,7 +41,7 @@ const EndScreen = ({ win, getResults, closeModal }) => {
                     </svg>
                 </button>
                 <div className="modalContent">
-                    <h2>This might suit you better...</h2>
+                    <h3>This might suit you better...</h3>
                     <a href="https://www.nytimes.com/games/connections" target="_blank">
                         <button className="nyt">
                             <img src={nytimesLogo} alt="NYTimes Logo" className="nytimes-logo" />

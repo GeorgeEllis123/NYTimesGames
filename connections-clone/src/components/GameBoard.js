@@ -44,6 +44,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
     const [fadeOut, setFadeOut] = useState(false);
     const [fadeOutTiles, setFadeOutTiles] = useState(false);
     const [fadeInTiles, setFadeInTiles] = useState(false);
+    const [gameover, setGameover] = useState(false);
     const [loss, setLoss] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
 
@@ -150,6 +151,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
 
                 if (newLives <= 0) {
                     setLoss(true);
+                    setGameover(true);
                     showPopupMessage(getRandomMessage(0));
                     setTimeout(() => endGame(false, guesses), 2000);
                 } 
@@ -163,6 +165,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
         }
 
         if (numFound === 4) {
+            setGameover(true);
             showPopupMessage(getRandomMessage(1));
             setTimeout(() => endGame(true, guesses), 1500);
         }
@@ -204,6 +207,7 @@ const GameBoard = ({ selectedWords, setSelectedWords, endGame }) => {
                 onShuffle={shuffle}
                 lives={lives}
                 disableSubmit={disableSubmit}
+                gameover={gameover}
             />
         </div>
     );

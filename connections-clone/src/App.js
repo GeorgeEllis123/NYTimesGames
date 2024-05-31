@@ -42,6 +42,7 @@ const App = () => {
     };
 
     const endGame = (success, guesses) => {
+        setGameState('end');
         setIsEndScreenModalOpen(true);
         setWin(success);
         setResults(guesses);
@@ -50,12 +51,17 @@ const App = () => {
     return (
         <div>
             {gameState === 'start' && <StartScreen onStart={startGame} />}
-            {gameState === 'playing' && (
+            {(gameState === 'playing' || gameState === 'end' ) && (
                 <GameBoard
                     selectedWords={selectedWords}
                     setSelectedWords={setSelectedWords}
                     endGame={endGame}
                 />
+            )}
+            {gameState === 'end' && (
+                <div className="share-container">
+                    <button className="animate__animated animate__fadeIn submit" onClick={() => setIsEndScreenModalOpen(true)}>Share</button>
+                </div>
             )}
             {isEndScreenModalOpen && <EndScreen win={win} getResults={evaluateGuesses} closeModal={() => setIsEndScreenModalOpen(false)} />}
         </div>

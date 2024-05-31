@@ -1,7 +1,19 @@
 Freaky Connections ToDo!!!
 
-Start Page:
-- After clicking play animation
-
 Gameboard:
+- How to play
 - On Shuffle: animate__shakeY
+- Swap controls with share button after game is over
+
+Controls:
+- life loss animation
+
+End Screen:
+- Link to NY times
+- End Screen for loss
+- Show correct answers
+
+General:
+- Data save
+- Read in data from database
+- Ratings
