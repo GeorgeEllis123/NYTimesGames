@@ -50,6 +50,7 @@ const GameBoard = ({ endGame }) => {
     const [revealed, setRevealed] = useState(false);
     const [selectedWords, setSelectedWords] = useState([]);
     const [finalSelection, setFinalSelection] = useState([]);
+    const [shuffleAnimation, setShuffleAnimation] = useState(false);
 
     // Reveals the board after the player loses
     useEffect(() => {
@@ -110,12 +111,15 @@ const GameBoard = ({ endGame }) => {
 
     // Shuffles the words
     const shuffle = () => {
+        setShuffleAnimation(true);
         const shuffledWords = [...words];
         for (let i = shuffledWords.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [shuffledWords[i], shuffledWords[j]] = [shuffledWords[j], shuffledWords[i]];
         }
-        setWords(shuffledWords);
+
+        setTimeout(() => setWords(shuffledWords), 400);
+        setTimeout(() => setShuffleAnimation(false), 500);
     }
 
     // Selecting words
@@ -226,7 +230,7 @@ const GameBoard = ({ endGame }) => {
                 )}
             </div>
 
-            <div className="word-grid">
+            <div className={`animate__animated word-grid ${shuffleAnimation ? "animate__shakeY" : ""}`}>
                 {words.map(word => (
                     <WordItem
                         key={word.word}
