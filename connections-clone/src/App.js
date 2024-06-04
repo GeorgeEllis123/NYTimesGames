@@ -56,7 +56,7 @@ const App = () => {
             )}
             {gameState === 'end' && (
                 <div className="share-container">
-                    <button className="animate__animated animate__fadeIn submit" onClick={() => setIsEndScreenModalOpen(true)}>Share</button>
+                    <button className="animate__animated animate__fadeIn submit" onClick={() => setIsEndScreenModalOpen(true)}>{`${win ? "Share" : "Nice Try..."}`}</button>
                 </div>
             )}
             {isEndScreenModalOpen && <EndScreen win={win} getResults={evaluateGuesses} closeModal={() => setIsEndScreenModalOpen(false)} />}

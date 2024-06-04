@@ -54,7 +54,7 @@ const GameBoard = ({ endGame }) => {
 
     // Reveals the board after the player loses
     useEffect(() => {
-        if (!revealed && gameover) {
+        if (!revealed && gameover && loss) {
             setTimeout(() => revealBoard(), 1000)
             setRevealed(true);
         }
