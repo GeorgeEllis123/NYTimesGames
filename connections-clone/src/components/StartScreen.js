@@ -1,4 +1,5 @@
-﻿import React, {useState} from 'react';
+﻿import React, { useState } from 'react';
+import './styles/startscreenstyles.css'
 
 const StartScreen = ({ onStart }) => {
     const [isHovered, setIsHovered] = useState(false);

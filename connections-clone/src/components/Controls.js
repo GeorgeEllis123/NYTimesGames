@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import './styles/controlsstyles.css'
 
 const Controls = ({ selectedWords, onValidate, onDeselect, onShuffle, onShare, lives, disableSubmit, gameover }) => {
     return (

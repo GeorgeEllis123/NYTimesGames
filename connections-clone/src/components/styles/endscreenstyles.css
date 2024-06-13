@@ -1,0 +1,43 @@
+/*** End Screen ***/
+
+.share-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.nyt {
+    font-size: 1em;
+    justify-content: center;
+}
+
+.nytimes-logo {
+    width: 1.5em;
+}
+
+.close-button {
+    background-color: #1a1a1a;
+    border: 0px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #f0f0f0;
+}

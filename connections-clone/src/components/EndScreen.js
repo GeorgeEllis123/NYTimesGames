@@ -1,5 +1,6 @@
 import React from 'react';
 import nytimesLogo from '../images/nytwhite.png';
+import './styles/endscreenstyles.css'
 
 const EndScreen = ({ win, getResults, closeModal }) => {
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import WordItem from './WordItem';
 import Controls from './Controls';
 import Category from './Category';
+import './styles/gameboardstyle.css';
 
 // Word board and categories
 var allwords = [

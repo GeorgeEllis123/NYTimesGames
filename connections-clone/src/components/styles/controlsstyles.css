@@ -1,0 +1,35 @@
+/*** Controls ***/
+
+.submit {
+    border-width: 2px;
+    padding: 1em 1.5em;
+    font-size: .8em;
+    transition: background-color 0.3s;
+}
+
+    .submit:disabled {
+        background-color: #666666;
+        color: #cccccc;
+        cursor: default;
+        opacity: .5;
+    }
+
+.controls {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.lives {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.button-group {
+    display: flex;
+    gap: 1em;
+    flex-direction: row;
+}
