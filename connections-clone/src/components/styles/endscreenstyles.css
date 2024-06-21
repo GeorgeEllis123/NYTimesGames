@@ -1,4 +1,4 @@
-/*** End Screen ***/
+﻿/*** End Screen ***/
 
 .share-container {
     display: flex;
@@ -41,3 +41,35 @@
     text-align: center;
     color: #f0f0f0;
 }
+
+.results {
+    white-space: pre-wrap;
+}
+
+
+
+.iconContainer {
+    margin: auto;
+    position: relative;
+    width: 1em;
+    height: 1em;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🖕</text></svg>") 16 0,auto; /*!emojicursor.app*/
+}
+
+    .iconContainer .icon {
+        position: absolute;
+        width: 1em;
+        height: 1em;
+        border: 3px solid #fff;
+        border-radius: 5px;
+    }
+
+        .iconContainer .icon.back {
+            top: .3em;
+            left: .1em;
+        }
+
+        .iconContainer .icon.front {
+            top: 0;
+            right: .1em;
+        }

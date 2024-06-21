@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import './styles.css';
 import 'animate.css';
 import StartScreen from './components/StartScreen';
@@ -10,21 +10,42 @@ const App = () => {
     const [isEndScreenModalOpen, setIsEndScreenModalOpen] = useState(false);
     const [win, setWin] = useState(false);
     const [results, setResults] = useState([]);
+    const [gameNumber, setGameNumber] = useState(1);
+    //const [hasPlayed, setHasPlayed] = useSate(false);
+
+    /*
+    useEffect(() => {
+        const played = localStorage.getItem('hasPlayed');
+        if (played) {
+            setHasPlayed(true);
+            setGameState('end');
+        }
+    }, []);
+    */
+
+    function formatNumber(num) {
+        return num.toString().padStart(3, '0');
+    }
 
     function evaluateGuesses() {
-        var output = "Freaky Connections 001\n";
+        // Title
+        var output = "Freaky Connections ";
+        output += formatNumber(gameNumber);
+        output += "\n";
+
+        // Guesses
         const guessesRows = results.map(guesses => guesses.map(word => word.rownumber));
         guessesRows.forEach(row => row.forEach(item => {
-            if (item === "0") {
+            if (item === 0) {
                 output += "🟧";
             }
-            else if (item === "1") {
+            else if (item === 1) {
                 output += "🟫";
             }
-            else if (item === "2") {
+            else if (item === 2) {
                 output += "🟦";
             }
-            else if (item === "3") {
+            else if (item === 3) {
                 output += "🟪";
             }
         }, output += "\n"));

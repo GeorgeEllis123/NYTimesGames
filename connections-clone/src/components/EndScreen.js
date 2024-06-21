@@ -3,7 +3,6 @@ import nytimesLogo from '../images/nytwhite.png';
 import './styles/endscreenstyles.css'
 
 const EndScreen = ({ win, getResults, closeModal }) => {
-
     const handleCopy = () => {
         const textToCopy = getResults();
         navigator.clipboard.writeText(textToCopy).then(() => {
@@ -24,7 +23,15 @@ const EndScreen = ({ win, getResults, closeModal }) => {
                 </button>
                 <div className="modalContent">
                     <h3>Share your result!</h3>
-                    <button onClick={handleCopy}>Copy Text</button>
+                    <p className="results"> 
+                        {getResults()}
+                    </p>
+
+                    <div onClick={handleCopy} className="iconContainer">
+                        <div class="icon back"></div>
+                        <div class="icon front"></div>
+                    </div>
+
                     <h3>And go sober up...</h3>
                     <a href="https://www.nytimes.com/games/connections" target="_blank">
                         <button className="nyt">
