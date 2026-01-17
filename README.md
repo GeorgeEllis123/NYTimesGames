@@ -5,12 +5,6 @@ A collection of web-based clones of popular **New York Times Games**, built to e
 Currently implemented:
 - ✅ **Connections**
 
-Planned:
-- ⏳ Wordle
-- ⏳ Mini Crossword
-- ⏳ Spelling Bee
-- ⏳ More TBD
-
 ---
 
 ## 📌 Overview
