@@ -47,23 +47,6 @@ The primary goals of this project are:
 
 ---
 
-## 🚀 How To Play!
-
-### Prerequisites
-- Node.js (v18+ recommended)
-- npm
-
-### Installation
-
-```bash
-git clone https://github.com/yourusername/nyt-games-clone.git
-cd nyt-games-clone
-npm install
-npm start
-
-http://localhost:3000
-```
-
 ## ⚠️ Disclaimer
 
 This project is not affiliated with or endorsed by The New York Times.
